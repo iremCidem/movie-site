@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Navside from "./components/NavSide/index";
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/home";
@@ -7,8 +7,15 @@ import Search from "./pages/search";
 import UpComing from "./pages/upComing";
 import Trends from "./pages/Trends";
 import MovieDetail from "./pages/movieDetail";
+import { useDispatch } from "react-redux";
+import { addMovieToFavoritesSuccess } from "./store/slices/movieSlice";
 
 export default function App() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const favorites = JSON.parse(localStorage.getItem("user_favorites"));
+    dispatch(addMovieToFavoritesSuccess(favorites));
+  }, []);
   return (
     <>
       <Navside />

@@ -8,6 +8,8 @@ import { Typography, Popover } from "antd";
 import { HeartTwoTone } from "@ant-design/icons";
 
 import Loading from "./loading";
+import { useDispatch } from "react-redux";
+import { addMovieToFavoritesRequest } from "../store/slices/movieSlice";
 const Styledimg = styled.img`
   margin-right: 20px;
   border-radius: 8px;
@@ -37,11 +39,10 @@ const StyledIcon = styled(HeartTwoTone)`
   }
 `;
 export default function MovieDetail() {
-  const [infavorite, setInFavorite] = useState(false);
-  function handleClick(id, myObject) {
-    const myJSON = JSON.stringify(myObject);
-    localStorage.setItem(id, myJSON);
-    setInFavorite(!infavorite);
+  const dispatch = useDispatch();
+
+  function handleClick(id) {
+    dispatch(addMovieToFavoritesRequest(id));
   }
   // eslint-disable-next-line no-unused-vars
   const [showArrow, setShowArrow] = useState(true);
@@ -61,7 +62,7 @@ export default function MovieDetail() {
   );
 
   if (error) {
-    return alert("data error");
+    return alert(error);
   } else if (loading) {
     return <Loading />;
   }
@@ -101,7 +102,7 @@ export default function MovieDetail() {
                 fullfilled="false"
                 twoToneColor="#050505"
                 onClick={() => {
-                  handleClick(data.id, data);
+                  handleClick(data.id);
                 }}
               />
             </Popover>

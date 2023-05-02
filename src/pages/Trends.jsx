@@ -3,8 +3,9 @@ import MainPart from "../styledComponets/MainPart";
 import { Radio } from "antd";
 import MoviePoster from "../components/MoviePoster/index";
 import Loading from "./loading";
-import { getMoviesRequest } from "../store/slices/favoriteSlice";
+import { getMoviesRequest } from "../store/slices/movieSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { Header } from "../styledComponets/Header";
 
 export default function Trends() {
   const dispatch = useDispatch();
@@ -25,16 +26,19 @@ export default function Trends() {
 
   return (
     <MainPart>
-      <h1>Trends of the {selection}</h1>
-      <Radio.Group
-        value={selection}
-        onChange={(e) => {
-          setSelection(e.target.value);
-        }}
-      >
-        <Radio.Button value="day">day</Radio.Button>
-        <Radio.Button value="week">week</Radio.Button>
-      </Radio.Group>
+      <Header>
+        Trends of the {selection}
+        <Radio.Group
+          value={selection}
+          onChange={(e) => {
+            setSelection(e.target.value);
+          }}
+        >
+          <Radio.Button value="day">day</Radio.Button>
+          <Radio.Button value="week">week</Radio.Button>
+        </Radio.Group>
+      </Header>
+
       <div>
         <MoviePoster />
       </div>

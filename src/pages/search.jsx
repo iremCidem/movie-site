@@ -1,30 +1,17 @@
 import React, { useEffect, useState } from "react";
 import MainPart from "../styledComponets/MainPart";
 import useDebounce from "../hooks/useDebounce";
-import axios from "axios";
 import MoviePoster from "../components/MoviePoster/index";
 import Loading from "./loading";
+import { Header } from "../styledComponets/Header";
+import { useSelector, useDispatch } from "react-redux";
+import { getMoviesRequest } from "../store/slices/movieSlice";
 
 export default function Search() {
+  const dispatch = useDispatch();
   const [search, setSearch] = useState();
   const debouncedSearch = useDebounce(search, 1000);
-  const [data, setData] = useState();
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState();
-
-  function getMovies(url) {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(url);
-        setData(response.data.results);
-        setIsLoading(false);
-      } catch (error) {
-        setError(error);
-        setIsLoading(false);
-      }
-    };
-    return fetchData();
-  }
+  const { loading, error, movieDatas } = useSelector((state) => state);
 
   const url1 = `${process.env.REACT_APP_MOVIE_URL}search/movie?api_key=${process.env.REACT_APP_API_KEY}&query=${search}`;
   const url2 =
@@ -32,13 +19,13 @@ export default function Search() {
 
   useEffect(() => {
     if (debouncedSearch) {
-      getMovies(url1);
+      dispatch(getMoviesRequest(url1));
     } else {
-      getMovies(url2);
+      dispatch(getMoviesRequest(url2));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedSearch]);
-  if (isLoading) {
+  if (loading) {
     return <Loading />;
   } else if (error) {
     return <MainPart>error</MainPart>;
@@ -46,16 +33,18 @@ export default function Search() {
 
   return (
     <MainPart>
-      <label>Search Movie</label>
-      <input
-        type="text"
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-      />
+      <Header>
+        <label>Search Movie</label>
+        <input
+          type="text"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+      </Header>
 
       <div>
-        {data.length >= 1 ? (
-          <MoviePoster movieData={data} />
+        {movieDatas.length >= 1 ? (
+          <MoviePoster />
         ) : (
           <div>there were no results. </div>
         )}

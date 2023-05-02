@@ -1,12 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-import favoriteReducer from "./slices/favoriteSlice";
+import movieReducer from "./slices/movieSlice";
 import MovieSagas from "./sagas/movieSagas";
 import createSagaMiddleware from "redux-saga";
 
 const sagaMiddleware = createSagaMiddleware();
 
 export const store = configureStore({
-  reducer: favoriteReducer,
+  reducer: movieReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(sagaMiddleware),
 });

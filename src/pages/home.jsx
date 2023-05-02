@@ -4,7 +4,7 @@ import Facer from "../components/Facer/index";
 import Loading from "./loading";
 import MainPart from "../styledComponets/MainPart";
 import { useDispatch, useSelector } from "react-redux";
-import { getMoviesRequest } from "../store/slices/favoriteSlice";
+import { getMoviesRequest } from "../store/slices/movieSlice";
 
 export default function Home() {
   const dispatch = useDispatch();
