@@ -1,15 +1,18 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import MoviePoster from "../components/MoviePoster/index";
 import Facer from "../components/Facer/index";
-import Loading from "./loading";
+import Loading from "../components/Loading";
 import MainPart from "../styledComponets/MainPart";
 import { useDispatch, useSelector } from "react-redux";
 import { getMoviesRequest } from "../store/slices/movieSlice";
 
 export default function Home() {
+  const [style, setStyle] = useState("");
   const dispatch = useDispatch();
   const url = `${process.env.REACT_APP_MOVIE_URL}movie/now_playing?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&page=1`;
-  const { loading, error, movieDatas } = useSelector((state) => state);
+  const { loading, error, movieDatas, favorites } = useSelector(
+    (state) => state
+  );
   useEffect(() => {
     dispatch(getMoviesRequest(url));
     // eslint-disable-next-line react-hooks/exhaustive-deps

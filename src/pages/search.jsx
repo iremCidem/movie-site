@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import MainPart from "../styledComponets/MainPart";
 import useDebounce from "../hooks/useDebounce";
 import MoviePoster from "../components/MoviePoster/index";
-import Loading from "./loading";
+import Loading from "../components/Loading";
 import { Header } from "../styledComponets/Header";
 import { useSelector, useDispatch } from "react-redux";
 import { getMoviesRequest } from "../store/slices/movieSlice";
@@ -39,6 +39,7 @@ export default function Search() {
           type="text"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
+          placeholder="Enter Movie"
         />
       </Header>
 

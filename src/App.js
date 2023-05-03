@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import Navside from "./components/NavSide/index";
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/home";
-import Favorites from "./pages/favorites";
+import Favorites from "./pages/Favorites/index";
 import Search from "./pages/search";
 import UpComing from "./pages/upComing";
 import Trends from "./pages/Trends";
@@ -15,7 +15,7 @@ export default function App() {
   useEffect(() => {
     const favorites = JSON.parse(localStorage.getItem("user_favorites"));
     dispatch(addMovieToFavoritesSuccess(favorites));
-  }, []);
+  }, [dispatch]);
   return (
     <>
       <Navside />

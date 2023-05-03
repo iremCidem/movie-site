@@ -9,8 +9,8 @@ import {
 } from "../slices/movieSlice";
 
 function* addFavoritesSaga(action) {
-  const favorites = yield select((state) => state.favorites);
-  const movieId = action.payload;
+  const favorites = yield select((state) => state.favorites); //yield select ile reduxtaki stateimize ulaştık.
+  const movieId = action.payload; //dispatch içinde idyi gönderiyoruz.
   const checkIfDataExist = favorites?.find((item) => item.id === movieId);
   if (!checkIfDataExist) {
     const movies = yield select((state) => state.movieDatas);

@@ -1,13 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { StyledImage, StyledRow, StyledCol, Icon } from "./styled";
 import { useDispatch, useSelector } from "react-redux";
 import { addMovieToFavoritesRequest } from "../../store/slices/movieSlice";
 
-export default function MoviePoster() {
+export default function MoviePoster({ selected }) {
   const dispatch = useDispatch();
-  const { movieDatas } = useSelector((state) => state);
+  const { movieDatas, favorites } = useSelector((state) => state);
+  const [style, setStyle] = useState("#b3286d");
   function handleClick(id) {
+    favorites.forEach((item) => {
+      if (item.id === id) {
+        setStyle("#837a6b");
+      } else {
+        setStyle("#b3286d");
+      }
+    });
+
     dispatch(addMovieToFavoritesRequest(id));
   }
   return (
@@ -24,7 +33,7 @@ export default function MoviePoster() {
                   />
                 </Link>
                 <Icon
-                  twoToneColor="#b3286d"
+                  twoToneColor={style}
                   onClick={() => {
                     handleClick(movie.id);
                   }}

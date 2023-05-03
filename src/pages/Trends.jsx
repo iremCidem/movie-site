@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import MainPart from "../styledComponets/MainPart";
 import { Radio } from "antd";
 import MoviePoster from "../components/MoviePoster/index";
-import Loading from "./loading";
+import Loading from "../components/Loading";
 import { getMoviesRequest } from "../store/slices/movieSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Header } from "../styledComponets/Header";
@@ -21,13 +21,13 @@ export default function Trends() {
     return <Loading />;
   }
   if (error) {
-    return <MainPart>ERROR </MainPart>;
+    return <MainPart>ERROR</MainPart>;
   }
 
   return (
     <MainPart>
       <Header>
-        Trends of the {selection}
+        <div> Trends of the {selection}</div>
         <Radio.Group
           value={selection}
           onChange={(e) => {

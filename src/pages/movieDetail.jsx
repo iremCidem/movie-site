@@ -6,8 +6,7 @@ import styled from "styled-components";
 import { BorderlessTableOutlined } from "@ant-design/icons";
 import { Typography, Popover } from "antd";
 import { HeartTwoTone } from "@ant-design/icons";
-
-import Loading from "./loading";
+import Loading from "../components/Loading";
 import { useDispatch } from "react-redux";
 import { addMovieToFavoritesRequest } from "../store/slices/movieSlice";
 const Styledimg = styled.img`
