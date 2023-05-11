@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import MoviePoster from "../components/MoviePoster/index";
 import Facer from "../components/Facer/index";
 import Loading from "../components/Loading";
